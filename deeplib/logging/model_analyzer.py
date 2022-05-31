@@ -4,7 +4,7 @@ from typing import Callable
 
 from .storage import Storage
 from ..utils.tensor import detach
-from ..structures import FeatureMap1D, FeatureMap2D, LayerOutput
+from ..structures import create_activation
 
 
 class ModelAnalyzer(nn.Module):
@@ -20,15 +20,12 @@ class ModelAnalyzer(nn.Module):
             self._activations[name] = torch.empty(0)
 
     def store_output_hook(self, module_name: str) -> Callable:
-        def fn(layer, input, output):
+        def fn(module, input, output):
             output = detach(output).squeeze(0)
 
-            if len(output.shape) == 1:
-                self._activations[module_name] = FeatureMap1D(output, module_name)
-            elif len(output.shape) == 3:
-                self._activations[module_name] = FeatureMap2D(output, module_name)
-            else:
-                self._activations[module_name] = LayerOutput(output, module_name)
+            self._activations[module_name] = create_activation(
+                output, module_name, module
+            )
 
         return fn
 
