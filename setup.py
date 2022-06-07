@@ -21,7 +21,7 @@ setup_args = dict(
     download_url="https://pypi.org/project/deeplib-ml/",
 )
 
-install_requires = ["torch>=1.11.0"]
+install_requires = ["torch>=1.7.1"]
 
 if __name__ == "__main__":
     setup(**setup_args, install_requires=install_requires)
