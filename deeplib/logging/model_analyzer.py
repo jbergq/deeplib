@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from typing import Callable
 
-from .storage import Storage
+from ..structures import Storage, Activations
 from ..utils.tensor import detach
 from ..structures import create_activation
 
@@ -12,7 +12,7 @@ class ModelAnalyzer(nn.Module):
         super().__init__()
 
         self.model = model
-        self._activations = Storage()
+        self._activations = Activations()
         self._weights = Storage()
 
         for name, module in self.model.named_modules():
