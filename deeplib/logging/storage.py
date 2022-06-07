@@ -1,3 +1,6 @@
+import re
+
+
 class Storage:
     """
     Class for holding logged data from model.
@@ -10,7 +13,7 @@ class Storage:
         return self.storage.items()
 
     def get(self, key=""):
-        return [data for name, data in self.storage.items() if key in name]
+        return [data for name, data in self.storage.items() if re.search(key, name)]
 
     def __getitem__(self, key):
         return self.storage[key]
