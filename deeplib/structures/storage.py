@@ -3,10 +3,10 @@ import re
 
 class Storage:
     """
-    Class for holding logged data from model.
+    General-purpose data container.
     """
 
-    def __init__(self, storage={}) -> None:
+    def __init__(self, storage={}):
         self.storage = storage
 
     def items(self):

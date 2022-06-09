@@ -29,7 +29,7 @@ def put_text(img, text):
 
 
 class LayerOutput:
-    def __init__(self, data, name="unnamed_output") -> None:
+    def __init__(self, data, name="unnamed_output"):
         self.data = data
         self.name = name
 
@@ -38,7 +38,7 @@ class LayerOutput:
 
 
 class FeatureMap1D(LayerOutput):
-    def __init__(self, data, name=None) -> None:
+    def __init__(self, data, name=None):
         super().__init__(data, name)
 
     def image(self):
@@ -57,7 +57,7 @@ class FeatureMap1D(LayerOutput):
 
 
 class FeatureMap2D(LayerOutput):
-    def __init__(self, data, name=None) -> None:
+    def __init__(self, data, name=None):
         super().__init__(data, name)
 
     def image(self):
