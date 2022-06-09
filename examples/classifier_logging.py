@@ -3,24 +3,24 @@ import torchvision
 import matplotlib.pyplot as plt
 from pathlib import Path
 from PIL import Image
-from torchvision.models.mobilenetv2 import mobilenet_v2
+from torchvision.models.resnet import resnet18
 
 from deeplib.logging import ModelAnalyzer
 
-model = mobilenet_v2(pretrained=True).eval()
+model = resnet18(pretrained=True).eval()
 model_l = ModelAnalyzer(model)
 
 # Get sample image
 tf = torchvision.transforms.ToTensor()
 
-image = Image.open(Path("data/images/dog_2.jpg"))
+image = Image.open(Path("data/images/dog.jpg"))
 image = tf(image).unsqueeze(0)
 
 output = model(image)
 output_l = model_l(image)
 assert torch.equal(output, output_l), "Outputs do not match."
 
-activations = model_l.activations().get("features.18")
+activations = model_l.activations().get("relu")
 weights = model_l.weights()
 
 for a in activations:
@@ -28,3 +28,5 @@ for a in activations:
     plt.imshow(a.image(), cmap="gray")
 
 plt.show()
+
+assert True

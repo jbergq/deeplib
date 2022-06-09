@@ -33,11 +33,13 @@ class LayerOutput:
         self.data = data
         self.name = name
 
+    def value(self):
+        return self.data
+
 
 class FeatureMap1D(LayerOutput):
     def __init__(self, data, name=None) -> None:
-        super().__init__(name)
-        self.data = data
+        super().__init__(data, name)
 
     def image(self):
         grid_squares = [np.ones((64, 64)) * d.item() for d in self.data]

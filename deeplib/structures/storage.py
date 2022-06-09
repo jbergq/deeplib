@@ -13,7 +13,12 @@ class Storage:
         return self.storage.items()
 
     def get(self, key=""):
-        return [data for name, data in self.storage.items() if re.search(key, name)]
+        return Storage(
+            {name: data for name, data in self.storage.items() if re.search(key, name)}
+        )
+
+    def values(self):
+        return [a.value() for a in self.storage.values()]
 
     def __getitem__(self, key):
         return self.storage[key]
@@ -29,3 +34,6 @@ class Storage:
 
     def __iter__(self):
         return iter(self.storage)
+
+    def layers(self):
+        return list(self.storage.keys())
