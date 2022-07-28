@@ -23,7 +23,7 @@ assert torch.equal(output, output_l), "Outputs do not match."
 activations = model_l.activations().get("relu")
 weights = model_l.weights()
 
-for a in activations:
+for name, a in activations.items():
     plt.figure(a.name, figsize=(20, 20))
     plt.imshow(a.image(), cmap="gray")
 

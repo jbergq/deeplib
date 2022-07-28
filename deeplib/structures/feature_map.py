@@ -7,10 +7,15 @@ from torchvision.utils import make_grid
 
 
 def create_activation(output, name, module):
+    # TODO: Replace with better parsing, only temporary solution.
+
     if len(output.shape) == 1:
         return FeatureMap1D(output, name)
     elif len(output.shape) == 3:
-        return FeatureMap2D(output, name)
+        if isinstance(module, torch.nn.Conv2D):
+            FeatureMapConv2D(output, module, name)
+        else:
+            return FeatureMap2D(output, name)
     else:
         return LayerOutput(output, name)
 
@@ -70,3 +75,11 @@ class FeatureMap2D(LayerOutput):
             grid = grid.permute(1, 2, 0)
 
         return grid
+
+class FeatureMapConv2D(FeatureMap2D):
+    def __init__(self, data, layer=None, name=None):
+        super().__init__(data, name)
+        self._store_layer_params(layer)
+
+    def _store_layer_params(self, layer):
+        pass
